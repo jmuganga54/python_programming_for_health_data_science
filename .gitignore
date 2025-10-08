@@ -1,0 +1,143 @@
+# =========================================
+# macOS system files
+# =========================================
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Trashes
+.Spotlight-V100
+.fseventsd
+
+# =========================================
+# Python
+# =========================================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# Packaging / build
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+wheels/
+*.spec
+
+# =========================================
+# Jupyter Notebooks
+# =========================================
+.ipynb_checkpoints/
+jupyter_cache/
+
+# =========================================
+# Data files (raw or intermediate)
+# (Keep clean data elsewhere or in data/raw/)
+# =========================================
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.sav
+*.dta
+*.rds
+*.RData
+*.feather
+*.parquet
+*.sas7bdat
+*.json
+*.zip
+
+# Allow data dictionaries or small sample files
+!data_dictionary.*
+!sample_data.*
+
+# =========================================
+# Model and analysis outputs
+# =========================================
+*.h5
+*.pkl
+*.joblib
+*.npy
+*.npz
+*.model
+*.sav
+
+# =========================================
+# Logs and temporary files
+# =========================================
+*.log
+*.tmp
+*.bak
+*.swp
+*~
+.cache/
+__results__/
+.temp/
+*.pid
+
+# =========================================
+# Reports / generated outputs
+# =========================================
+*.pdf
+*.docx
+*.html
+*.rtf
+*.pptx
+
+# =========================================
+# Notebooks auto-saves
+# =========================================
+.ipynb_checkpoints
+*.nbconvert.ipynb
+
+# =========================================
+# IDE / Editor settings
+# =========================================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# =========================================
+# R integration (if using R + Python)
+# =========================================
+.Rhistory
+.RData
+.Rproj.user/
+
+# =========================================
+# Environment / dependency managers
+# =========================================
+.python-version
+Pipfile.lock
+poetry.lock
+*.toml
+
+# =========================================
+# Output folders
+# =========================================
+outputs/
+reports/
+figures/
+plots/
+results/
+
+# =========================================
+# Miscellaneous
+# =========================================
+# Keep Markdown & configuration files
+!*.md
+!*.yml
+!*.yaml
+!*.json
+!*.toml
