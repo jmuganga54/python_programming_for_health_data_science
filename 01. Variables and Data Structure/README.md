@@ -1,8 +1,7 @@
 ## Topic
 
-# Single-Value Variables and Strings
+This section we will learn about;
 
-## Table of Contents
 - [1) What is a variable?](#1-what-is-a-variable)
 - [2) Create and assign](#2-create-and-assign)
 - [3) Naming rules & conventions](#3-naming-rules--conventions)
@@ -20,6 +19,7 @@
 
 ### Single-Value Variables and Strings
 
+<a id="1-what-is-a-variable"></a>
 1) What is a variable?
 
 A `variable` is a name (label) that stores a value. Python figures out the type for you (this is called `dynamic typing`).
@@ -38,6 +38,7 @@ Output:
 
 ```
 
+<a id="2-create-and-assign"></a>
 2) Create and assign
 
 Use `=` to store a value in a name. Left is the name, right is the value.
@@ -52,6 +53,7 @@ Output:
 1
 ```
 
+<a id="3-naming-rules--conventions"></a>
 3) Naming rules & conventions
 
 * Start with a letter or `_`, then letters, numbers, `_`
@@ -79,6 +81,7 @@ help('keywords')
 ```
 (Outputs a list like `['False', 'None', 'True', 'and', ...]`)
 
+<a id="4-scalar-data-types-you-will-use"></a>
 4) Scalar data types you will use
 
 * `int`: whole numbers
@@ -101,7 +104,7 @@ Output (types may vary in format):
 <class 'int'> <class 'float'> <class 'bool'> <class 'str'>
 
 ```
-
+<a id="5-dynamic-typing-types-can-change"></a>
 5) Dynamic typing (types can change)
 
 ```
@@ -116,7 +119,7 @@ Output:
 120 <class 'int'>
 
 ```
-
+<a id="6-strings-101"></a>
 6) Strings 101
 
 Strings are text in quotes. Useful tools:
@@ -254,7 +257,7 @@ Diagnosis: Hypertension
 
 
 ```
-
+<a id="7-converting-between-strings-and-numbers"></a>
 7) Converting between strings and numbers
 
 ```
@@ -323,7 +326,7 @@ Output:
 None
 
 ```
-
+<a id="8-encoding-and-decoding-for-names-with-accents"></a>
 8) Encoding and decoding (for names with accents)
 
 ```
@@ -341,7 +344,7 @@ b'Dr. S\xc5\x82awomir B\xc4\x85k - Cardiologist'
 Dr. Sławomir Bąk - Cardiologist
 
 ```
-
+<a id="9-regular-expressions-quick-pattern-find"></a>
 9) Regular expressions (quick pattern find)
 
 ```
@@ -357,7 +360,7 @@ Output:
 P123456
 
 ```
-
+<a id="10-string-formatting-3-main-ways"></a>
 10) String formatting (3 main ways)
 
 a) Percent style (older)
@@ -419,7 +422,7 @@ Output:
 Patient: Bob Brown, Age: 50, BMI: 26.4
 
 ```
-
+<a id="11-mini-real-world-report"></a>
 11) Mini real-world report
 
 ```
@@ -457,7 +460,7 @@ Weight: 80 kg
 BMI: 26.12
 
 ```
-
+<a id="12-common-pitfalls-to-avoid"></a>
 12) Common pitfalls to avoid
 
 * Do not shadow built-ins: avoid `list = [...]` (use patient_list instead). 
