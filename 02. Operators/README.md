@@ -1,4 +1,4 @@
-# Operators in Python — Beginner Guide
+# Operators in Python 
 
 Python operators let you **calculate**, **compare**, and **combine conditions**. You will use them every day for data work.
 
