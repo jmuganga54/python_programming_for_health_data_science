@@ -1,477 +1,343 @@
-## Topic
+# Operators in Python — Beginner Guide
 
-This section we will learn about;
+Python operators let you **calculate**, **compare**, and **combine conditions**. You will use them every day for data work.
 
-- [1) What is a variable?](#1-what-is-a-variable)
-- [2) Create and assign](#2-create-and-assign)
-- [3) Naming rules & conventions](#3-naming-rules--conventions)
-- [4) Scalar data types you will use](#4-scalar-data-types-you-will-use)
-- [5) Dynamic typing (types can change)](#5-dynamic-typing-types-can-change)
-- [6) Strings 101](#6-strings-101)
-- [7) Converting between strings and numbers](#7-converting-between-strings-and-numbers)
-- [8) Encoding and decoding (for names with accents)](#8-encoding-and-decoding-for-names-with-accents)
-- [9) Regular expressions (quick pattern find)](#9-regular-expressions-quick-pattern-find)
-- [10) String formatting (3 main ways)](#10-string-formatting-3-main-ways)
-- [11) Mini real-world report](#11-mini-real-world-report)
-- [12) Common pitfalls to avoid](#12-common-pitfalls-to-avoid)
+---
 
-## Keywords and Notes
+## 1) Arithmetic Operators
 
-### Single-Value Variables and Strings
+Do maths.
 
-<a id="1-what-is-a-variable"></a>
-1) What is a variable?
+| Operator | Meaning | Example | Notes |
+|---|---|---|---|
+| `+` | Addition | `a + b` | add numbers or join strings |
+| `-` | Subtraction | `a - b` |  |
+| `*` | Multiplication | `a * b` |  |
+| `/` | Division | `a / b` | always float (e.g., `5/2 -> 2.5`) |
+| `%` | Modulus | `a % b` | remainder |
+| `**` | Exponent | `a ** b` | power |
+| `//` | Floor division | `a // b` | divide then round **down** (e.g., `5//2 -> 2`) |
 
-A `variable` is a name (label) that stores a value. Python figures out the type for you (this is called `dynamic typing`).
-
+### Example: BMI (Body Mass Index)
+```python
+weight_kg = 70
+height_m = 1.75
+bmi = weight_kg / (height_m ** 2)
+print(bmi)
 ```
-patient_age = 45          # int
-patient_name = "Alice"    # str
-bmi = 24.5                # float
-has_diabetes = False      # bool
-
-print(patient_age, patient_name, bmi, has_diabetes)
+**Output**
 ```
-Output:
-```
-45 Alice 24.5 False
-
+22.857142857142858
 ```
 
-<a id="2-create-and-assign"></a>
-2) Create and assign
-
-Use `=` to store a value in a name. Left is the name, right is the value.
-
+**Try it (exercise):** change weight and height.
+```python
+weight_kg = 85
+height_m = 1.80
+bmi = weight_kg / (height_m ** 2)
+print(bmi)
 ```
-x = 1
-print(x)
-
+**Output**
 ```
-Output:
-```
-1
+26.234567901234566
 ```
 
-<a id="3-naming-rules--conventions"></a>
-3) Naming rules & conventions
+---
 
-* Start with a letter or `_`, then letters, numbers, `_`
-* Case sensitive (`age ≠ Age`)
-* Do not use Python keywords as names.
-* Prefer clear names like `systolic_bp`, not `sbp`
+## 2) Assignment Operators
+
+Update a variable in place.
+
+| Operator | Meaning | Example | Same as |
+|---|---|---|---|
+| `=` | assign | `a = b` |  |
+| `+=` | add then assign | `a += b` | `a = a + b` |
+| `-=` | subtract then assign | `a -= b` | `a = a - b` |
+| `*=` | multiply then assign | `a *= b` | `a = a * b` |
+| `/=` | divide then assign | `a /= b` | `a = a / b` |
+| `%=` | modulus then assign | `a %= b` | `a = a % b` |
+| `//=` | floor divide then assign | `a //= b` | `a = a // b` |
+| `**=` | exponent then assign | `a **= b` | `a = a ** b` |
+
+### Example
+```python
+weight_kg = 70
+weight_kg -= 5
+print(weight_kg)
 ```
-patient_id = "P12345"
-MAX_BMI_THRESHOLD = 30
-print(patient_id, MAX_BMI_THRESHOLD)
-
+**Output**
 ```
-
-Output:
-```
-P12345 30
-
-```
-
-To see reserved words:
-
-```
-help('keywords')
-
-```
-(Outputs a list like `['False', 'None', 'True', 'and', ...]`)
-
-<a id="4-scalar-data-types-you-will-use"></a>
-4) Scalar data types you will use
-
-* `int`: whole numbers
-* `float`: decimals
-* `bool`: True or False
-* `str`: text
-
-```
-num_patients = 250      # int
-cholesterol = 185.5     # float
-is_smoker = True        # bool
-diagnosis = "HTN"       # str
-
-print(type(num_patients), type(cholesterol), type(is_smoker), type(diagnosis))
-
-```
-Output (types may vary in format):
-
-```
-<class 'int'> <class 'float'> <class 'bool'> <class 'str'>
-
-```
-<a id="5-dynamic-typing-types-can-change"></a>
-5) Dynamic typing (types can change)
-
-```
-bp_reading = "120"          # starts as string
-bp_reading = int(bp_reading)  # now int
-print(bp_reading, type(bp_reading))
-
-```
-Output:
-
-```
-120 <class 'int'>
-
-```
-<a id="6-strings-101"></a>
-6) Strings 101
-
-Strings are text in quotes. Useful tools:
-
-**Length**
-```
-s = "This is a text string."
-print(len(s))
-
-```
-Output:
-```
-22
-
-```
-**Indexing & slicing**
-
-(Index starts at 0)
-
+65
 ```
 
-s = "This is a text string."
-print(s[2])       # third character
-print(s[0:4])     # 'This'
-print(s[-1])      # last character
-print(s[3:-5])    # slice middle
-
+**Try it (exercise):**  
+```python
+weight_kg = 85
+weight_kg += 3
+print(weight_kg)
 ```
-Output:
+**Output**
 ```
-i
-This
-.
-s a text str
-
+88
 ```
 
-**Concatenation**
+---
 
+## 3) Comparison Operators
+
+Return `True` or `False`.
+
+| Operator | Meaning | Example |
+|---|---|---|
+| `==` | equal | `a == b` |
+| `!=` | not equal | `a != b` |
+| `>` | greater than | `a > b` |
+| `<` | less than | `a < b` |
+| `>=` | greater or equal | `a >= b` |
+| `<=` | less or equal | `a <= b` |
+
+### Example: Study eligibility by age
+```python
+patient_age = 45
+min_age, max_age = 18, 65
+is_eligible = min_age <= patient_age <= max_age
+print(is_eligible)
 ```
-first = "John"; last = "Doe"
-full = first + " " + last
-print(full)
-
-```
-Output:
-
-```
-John Doe
-
-```
-
-**Change case**
-
-```
-note = "patient requires IMMEDIATE attention"
-print(note.lower())
-print(note.upper())
-
-```
-Output:
-
-```
-patient requires immediate attention
-PATIENT REQUIRES IMMEDIATE ATTENTION
-
-```
-
-**Membership (`in`, `not in`)**
-
-```
-pc = "86 year old female with central chest pain"
-print("chest" in pc)
-print("kidney pain" not in pc)
-
-```
-Output:
-
+**Output**
 ```
 True
+```
+
+---
+
+## 4) Logical Operators
+
+Combine conditions.
+
+| Operator | Meaning | Example result |
+|---|---|---|
+| `and` | both must be True | `True and False -> False` |
+| `or` | at least one True | `True or False -> True` |
+| `not` | flips truth | `not True -> False` |
+
+### Example: Complex eligibility
+```python
+min_age, max_age = 18, 65
+patient_age = 45
+has_diabetes = False
+has_heart_disease = True
+
+is_eligible = (min_age <= patient_age <= max_age) and not has_diabetes and not has_heart_disease
+print(is_eligible)
+```
+**Output**
+```
+False
+```
+
+---
+
+## 5) Membership Operators
+
+Check if a value is inside a sequence (list, string, etc.).
+
+| Operator | Meaning | Example |
+|---|---|---|
+| `in` | is member | `3 in [1,2,3] -> True` |
+| `not in` | is not member | `"a" not in "cup" -> True` |
+
+### Example
+```python
+critical_patients = [101, 202, 303]
+patient_id = 202
+print(patient_id in critical_patients)
+```
+**Output**
+```
 True
 ```
-**Split and join**
 
+---
+
+## 6) Identity Operators
+
+Do two variables point to the **same object** in memory?
+
+| Operator | Meaning |
+|---|---|
+| `is` | same object |
+| `is not` | different objects |
+
+### Example
+```python
+list_a = [101, 202, 303]
+list_b = list_a
+list_c = [101, 202, 303]
+
+print(list_a is list_b)  # same object
+print(list_a is list_c)  # different object, same contents
 ```
-record = "Alice Smith, 50, Hypertension"
-parts = record.split(", ")
-print(parts)
-
-address_parts = ["123 Main St", "Apt 4B", "Springfield", "IL"]
-address = ", ".join(address_parts)
-print(address)
-
+**Output**
 ```
-Output:
-
-```
-['Alice Smith', '50', 'Hypertension']
-123 Main St, Apt 4B, Springfield, IL
-
-```
-
-**Escape characters**
-```
-print("This is \t a tab")
-print("This is a \n newline")
-
-```
-Output:
-
-```
-This is 	 a tab
-This is a 
- newline
-
+True
+False
 ```
 
-**Multiline strings**
+---
 
+## 7) Operator Precedence (Order of operations)
+
+Python evaluates some operators before others (like maths).  
+Use **parentheses** to make intent clear.
+
+> Exponent `**` → multiply/divide `* / // %` → add/subtract `+ -` → comparisons → `not` → `and` → `or`
+
+### Example
+```python
+age = 30
+bmi = 22
+smoker = True
+health_score = age / 10 + bmi / 2 - (5 if smoker else 0)
+print(health_score)
 ```
-medical_note = """
-Patient: John Doe
-Age: 45
-Diagnosis: Hypertension
-"""
-print(medical_note)
-
+**Output**
 ```
-Output:
-```
-
-Patient: John Doe
-Age: 45
-Diagnosis: Hypertension
-
-
-```
-<a id="7-converting-between-strings-and-numbers"></a>
-7) Converting between strings and numbers
-
-```
-# str -> int / float
-age = int("45")
-bmi = float("24.5")
-print(age, type(age))
-print(bmi, type(bmi))
-
+16.0
 ```
 
-Output:
-
+### More examples
+```python
+age = 50; bmi = 30; cholesterol = 220; smoker = True
+risk_score = (age / 10 + bmi / 5 + cholesterol / 100) * (1.5 if smoker else 1)
+print(risk_score)
 ```
-45 <class 'int'>
-24.5 <class 'float'>
-
+**Output**
 ```
-```
-# int / float -> str
-count_str = str(120)
-bmi_str = str(23.7)
-print(count_str, type(count_str))
-print(bmi_str, type(bmi_str))
-
-```
-Output
-
-```
-120 <class 'str'>
-23.7 <class 'str'>
-
+25.8
 ```
 
-**Common mistake example**
+```python
+age = 40; bmi = 28; has_diabetes = True; has_heart_disease = False; is_smoker = True
+is_eligible = (18 <= age <= 60) and (bmi < 30) and not has_diabetes and (is_smoker or not has_heart_disease)
+print(is_eligible)
 ```
-x = "123"
-# x + 4   # ❌ TypeError
-print(x + str(4))     # "1234"
-print(int(x) + 4)     # 127
+**Output**
 ```
-Output
-```
-1234
-127
-
+False
 ```
 
-**Safe conversion with error handling**
+---
 
+## 8) Selection with `if / elif / else`
+
+Run different code depending on conditions.
+
+### Example: BMI category
+```python
+bmi = 28
+
+if bmi < 18.5:
+    risk = "Underweight"
+elif 18.5 <= bmi < 24.9:
+    risk = "Normal weight"
+elif 25 <= bmi < 29.9:
+    risk = "Overweight"
+else:
+    risk = "Obesity"
+
+print(risk)
 ```
-def safe_to_int(s):
-    try:
-        return int(s)
-    except ValueError:
-        return None
-
-print(safe_to_int("42"))
-print(safe_to_int("forty-two"))
-
+**Output**
 ```
-Output:
-
-```
-42
-None
-
-```
-<a id="8-encoding-and-decoding-for-names-with-accents"></a>
-8) Encoding and decoding (for names with accents)
-
-```
-patient = "Dr. Sławomir Bąk - Cardiologist"
-encoded = patient.encode("utf-8")
-decoded = encoded.decode("utf-8")
-print(encoded)
-print(decoded)
-
-```
-Output (first line shows bytes, will vary):
-
-```
-b'Dr. S\xc5\x82awomir B\xc4\x85k - Cardiologist'
-Dr. Sławomir Bąk - Cardiologist
-
-```
-<a id="9-regular-expressions-quick-pattern-find"></a>
-9) Regular expressions (quick pattern find)
-
-```
-import re
-text = "Patient record: ID P123456, Age 45, Condition: HTN"
-m = re.search(r"P\d{6}", text)
-if m:
-    print(m.group())
-
-```
-Output:
-```
-P123456
-
-```
-<a id="10-string-formatting-3-main-ways"></a>
-10) String formatting (3 main ways)
-
-a) Percent style (older)
-
-```
-name = "Claire"
-print("Hi %s, nice to meet you" % name)
-
+Overweight
 ```
 
-Output:
+### Example: Multiple conditions
+```python
+age = 45
+bmi = 32
+is_smoker = True
+
+if age >= 18 and age <= 60 and bmi < 30 and not is_smoker:
+    print("Eligible")
+else:
+    print("Not eligible")
 ```
-Hi Claire, nice to meet you
-
+**Output**
 ```
-
-b) `str.format()`
-
-```
-patient_name, age, bmi = "John Doe", 45, 24.5
-print("Patient: {}, Age: {}, BMI: {:.1f}".format(patient_name, age, bmi))
-
-```
-
-Output:
-
-```
-Patient: John Doe, Age: 45, BMI: 24.5
-
+Not eligible
 ```
 
-c) f-strings (recommended)
+> Note on `input()`: Interactive input pauses the program to wait for typing. To **show an output here**, we usually avoid `input()` and set a value directly in examples.
 
+---
+
+## 9) `/` vs `//` (very common question)
+
+```python
+print(5 / 2)   # division (float)
+print(5 // 2)  # floor division (rounded down)
+print(-5 // 2) # also rounds down (toward negative infinity)
 ```
-patient_name, age, bmi, has_dm = "Jane Smith", 34, 21.34, False
-print(f"Patient: {patient_name}, Age: {age}, BMI: {bmi:.1f}, Diabetes: {has_dm}")
-
+**Output**
 ```
-
-Output:
-
-```
-Patient: Jane Smith, Age: 34, BMI: 21.3, Diabetes: False
-
-```
-
-**Template strings (safe substitutions)**
-
-```
-from string import Template
-tpl = Template("Patient: $name, Age: $age, BMI: $bmi")
-print(tpl.substitute(name="Bob Brown", age=50, bmi=26.4))
-
+2.5
+2
+-3
 ```
 
-Output:
+---
 
+## 10) Tiny Practice (with solutions)
+
+### Q1. Is a patient eligible (18–65 inclusive)?
+```python
+age = 70
+eligible = 18 <= age <= 65
+print(eligible)
 ```
-Patient: Bob Brown, Age: 50, BMI: 26.4
-
+**Output**
 ```
-<a id="11-mini-real-world-report"></a>
-11) Mini real-world report
-
-```
-patient = {
-    "name": "Chris Wilson",
-    "age": 41,
-    "height": 1.75,
-    "weight": 80
-}
-bmi = patient["weight"] / (patient["height"] ** 2)
-
-report = f"""
-Patient Report
---------------
-Name: {patient['name']}
-Age: {patient['age']}
-Height: {patient['height']} m
-Weight: {patient['weight']} kg
-BMI: {bmi:.2f}
-"""
-print(report)
-
-
+False
 ```
 
-Output:
-
+### Q2. Add five kilograms using `+=` and show the result.
+```python
+weight = 60
+weight += 5
+print(weight)
 ```
-Patient Report
---------------
-Name: Chris Wilson
-Age: 41
-Height: 1.75 m
-Weight: 80 kg
-BMI: 26.12
-
+**Output**
 ```
-<a id="12-common-pitfalls-to-avoid"></a>
-12) Common pitfalls to avoid
-
-* Do not shadow built-ins: avoid `list = [...]` (use patient_list instead). 
-* Mutable aliasing: two names pointing to the same list will both change
+65
 ```
-vital_stats = [120, 80]
-patient_vitals = vital_stats
-patient_vitals.append(98.6)
-print(vital_stats)      # [120, 80, 98.6]
 
+### Q3. Check if `"AB123"` is in a list of critical IDs.
+```python
+critical = ["AA111", "AB123", "AC222"]
+print("AB123" in critical)
 ```
-* Global mutations: changing globals inside functions can surprise you
+**Output**
+```
+True
+```
 
+---
 
+## Best Practices and Common Pitfalls
+
+**Best Practices**
+- Use **parentheses** to make complex expressions clear.
+- Use **meaningful names** (`systolic_bp`, not `sbp1`).
+- Avoid “magic numbers”: store constants in clearly named variables.
+
+**Common Pitfalls**
+- Misreading precedence (fix with parentheses).
+- Confusing `/` (float division) with `//` (floor division).
+- Mixing bitwise `&` `|` with logical `and` `or` (they are different).
+- Assuming `is` means equality. Use `==` to compare values; `is` checks identity.
+
+---
+
+### One-line summary
+Arithmetic does the maths, comparison checks values, logical combines conditions, membership tests “in lists,” identity tests “same object,” and `if/elif/else` chooses what to run — all governed by operator **precedence**.
