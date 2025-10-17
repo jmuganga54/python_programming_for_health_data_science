@@ -409,7 +409,7 @@ Error: all inputs must be numbers.
 Functions let you package logic once and reuse it everywhere—add clear parameters, validate inputs, return results, document with docstrings, and handle errors gracefully.
 
 
-## MORE ON : Lambda, `filter()`, `map()`, and `isinstance()` 
+> MORE ON : Lambda, `filter()`, `map()`, and `isinstance()` 
 
 # Lambda, `filter()`, `map()`, and `isinstance()` 
 
@@ -670,3 +670,265 @@ Error: inputs must be numbers.
 - **`filter(fn, data)`**: keep items where `fn(item)` is **True**.
 - **`map(fn, data)`**: transform each item into `fn(item)`.
 - **`isinstance(obj, types)`**: safe type checks (works with subclasses, multiple types).
+
+
+> MORE ON LIST COMPREHESION
+
+# List Comprehensions 
+
+List comprehensions are a compact, readable way to **create lists** from other iterables (like lists, ranges, strings).  
+General pattern:
+
+```python
+[new_item  for  item in iterable  if condition]
+```
+- `for item in iterable` → where items come from
+- `new_item` → how each item is transformed for the new list
+- `if condition` (optional) → filter which items to include
+
+Think: **“Take each `item`, optionally filter it, transform it, collect into a list.”**
+
+---
+
+## 1) Basic transformation
+
+**Goal:** square numbers 1..5
+
+**Regular loop**
+```python
+squares = []
+for n in range(1, 6):
+    squares.append(n * n)
+print(squares)
+```
+**Output**
+```
+[1, 4, 9, 16, 25]
+```
+
+**List comprehension**
+```python
+squares = [n * n for n in range(1, 6)]
+print(squares)
+```
+**Output**
+```
+[1, 4, 9, 16, 25]
+```
+
+---
+
+## 2) Add a filter (`if` at the end)
+
+**Goal:** square only **even** numbers 1..10
+```python
+even_squares = [n * n for n in range(1, 11) if n % 2 == 0]
+print(even_squares)
+```
+**Output**
+```
+[4, 16, 36, 64, 100]
+```
+
+> The `if` at the end acts as a **filter**: keep items where the condition is `True`.
+
+---
+
+## 3) If–else inside the expression (classification)
+
+Keep all items but choose their output with an inline if–else.
+
+**Goal:** label numbers as even/odd
+```python
+labels = ["even" if n % 2 == 0 else "odd" for n in range(5)]
+print(labels)
+```
+**Output**
+```
+['even', 'odd', 'even', 'odd', 'even']
+```
+
+> Difference:
+> - **Filter:** `[x for x in data if cond]` → keeps only some items.
+> - **If–else output:** `["A" if cond else "B" for x in data]` → keeps all items, chooses output.
+
+---
+
+## 4) Cleaning/transforming text
+
+**Goal:** strip spaces and uppercase names
+```python
+raw = [" alice ", "BOB ", "   clara"]
+clean = [name.strip().upper() for name in raw]
+print(clean)
+```
+**Output**
+```
+['ALICE', 'BOB', 'CLARA']
+```
+
+---
+
+## 5) Filter from a list of dicts
+
+**Goal:** names of patients with BMI > 25
+```python
+patients = [
+    {"name": "John", "bmi": 22.5},
+    {"name": "Alice", "bmi": 27.3},
+    {"name": "Bob", "bmi": 31.1},
+]
+high_bmi_names = [p["name"] for p in patients if p["bmi"] > 25]
+print(high_bmi_names)
+```
+**Output**
+```
+['Alice', 'Bob']
+```
+
+---
+
+## 6) Include positions with `enumerate()`
+
+**Goal:** 1-based index labels
+```python
+names = ["Ana", "Ben", "Cara"]
+labels = [f"{i}: {name}" for i, name in enumerate(names, start=1)]
+print(labels)
+```
+**Output**
+```
+['1: Ana', '2: Ben', '3: Cara']
+```
+
+---
+
+## 7) Nested loops (flattening & cartesian product)
+
+**A) Flatten a 2D list (matrix)**
+```python
+matrix = [[1, 2], [3, 4], [5, 6]]
+flat = [x for row in matrix for x in row]
+print(flat)
+```
+**Output**
+```
+[1, 2, 3, 4, 5, 6]
+```
+
+**B) Cartesian product (all pairs)**
+```python
+colors = ["red", "blue"]
+sizes = ["S", "M"]
+pairs = [(c, s) for c in colors for s in sizes]
+print(pairs)
+```
+**Output**
+```
+[('red', 'S'), ('red', 'M'), ('blue', 'S'), ('blue', 'M')]
+```
+
+> Order mirrors nested loops:
+> ```python
+> for c in colors:
+>     for s in sizes:
+>         ...
+> ```
+
+---
+
+## 8) List comprehension vs `map`/`filter`
+
+These are equivalent:
+
+```python
+# List comprehension:
+result = [n * 2 for n in data if n > 0]
+
+# map + filter:
+result = list(map(lambda n: n * 2, filter(lambda n: n > 0, data)))
+```
+
+**Rule of thumb:** list comprehensions are usually **clearer** and more “Pythonic”.
+
+---
+
+## 9) Set & dict comprehensions (related)
+
+**Set** (unique lengths)
+```python
+names = ["Ann", "Bob", "Eve", "Clara"]
+lengths = {len(name) for name in names}
+print(lengths)   # set is unordered
+```
+**Output** (order may vary)
+```
+{3, 5}
+```
+
+**Dict** (name → length)
+```python
+name_len = {name: len(name) for name in names}
+print(name_len)
+```
+**Output**
+```
+{'Ann': 3, 'Bob': 3, 'Eve': 3, 'Clara': 5}
+```
+
+---
+
+## 10) Common pitfalls & tips
+
+- ✅ Keep them readable; if it gets long or nested, use regular loops.
+- ✅ Put the **filter** at the end: `[x for x in data if cond]`.
+- ⚠️ Don’t use list comps just for **side effects** (like printing). They’re for **building lists**.
+- ⚠️ For huge data, a list comp holds everything in memory. Use a **generator expression** for lazy eval:
+  ```python
+  gen = (n * n for n in range(10_000_000))  # note parentheses
+  ```
+
+---
+
+## 11) Practice (with solutions)
+
+**A) Square all even numbers 1..12**
+```python
+even_squares = [n*n for n in range(1, 13) if n % 2 == 0]
+print(even_squares)
+```
+**Output**
+```
+[4, 16, 36, 64, 100, 144]
+```
+
+**B) Keep only emails ending with ".edu"**
+```python
+emails = ["a@uni.edu", "b@mail.com", "c@college.edu"]
+edu_only = [e for e in emails if e.endswith(".edu")]
+print(edu_only)
+```
+**Output**
+```
+['a@uni.edu', 'c@college.edu']
+```
+
+**C) From ["1", " 2 ", "three", "4"], convert to ints if possible**
+```python
+raw = ["1", " 2 ", "three", "4"]
+clean_ints = [int(s.strip()) for s in raw if s.strip().isdigit()]
+print(clean_ints)
+```
+**Output**
+```
+[1, 2, 4]
+```
+
+---
+
+## TL;DR
+
+- Pattern: **`[output for item in iterable if condition]`**
+- Use a **filter** at the end; use **if–else** inside the output when needed.
+- Great for transforming + filtering in one line.
+- Prefer list comprehensions to `map`/`filter` for readability in most cases.
