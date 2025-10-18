@@ -1,542 +1,379 @@
-# Testing and Error Handling in Python — Beginner-Friendly Guide
+# Python Week One — Exercises & Solutions (Beginner-Friendly)
 
-This guide makes **error handling** and **testing** clear and practical using small, focused examples. You’ll learn:
-
-- `try / except / else / finally`
-- Raising your own errors with `raise`
-- Safe type checks with `isinstance()`
-- Unit tests with `unittest` (including edge cases)
-- Integration testing ideas
-- Handy testing tips & patterns
-
-Where helpful, we show the **expected output** so you know what to look for.
+This README collects the week-one exercises **with** clear solutions, sample outputs, and brief explanations of each built-in used.  
+You can paste any code block into a Python file or Jupyter notebook and run it.
 
 ---
 
-## 1) Error Handling: `try / except / else / finally`
-
-### Why?
-Programs often see unexpected input (e.g., height = 0, or a string where a number is expected). Error handling lets your code **fail gracefully** instead of crashing.
-
-### Anatomy
-```python
-try:
-    # Code that may raise an error (an exception)
-except SomeError as e:
-    # How to recover/report
-else:
-    # Runs only if no exception happened in try
-finally:
-    # Always runs (cleanup, closing files, etc.)
-```
-
-### Common Exceptions
-- `ZeroDivisionError` — division by zero
-- `TypeError` — wrong type (e.g., string instead of number)
-- `ValueError` — correct type but bad value (e.g., negative age)
-- `IndexError` — index out of range in a list
-- `KeyError` — key not found in a dict
-
-### Key Built-in Used
-- **`isinstance(obj, types)`** → safe type checking; supports tuples and inheritance.
+## Table of Contents
+- [Problem 1: Variables and Data Structures](#problem-1-variables-and-data-structures)
+- [Problem 2: Operators in Python](#problem-2-operators-in-python)
+- [Problem 3: Iteration in Python](#problem-3-iteration-in-python)
+- [Problem 4: Iteration in Python](#problem-4-iteration-in-python)
+- [Problem 5: Data Structures in Python](#problem-5-data-structures-in-python)
+- [Problem 6: Functions in Python](#problem-6-functions-in-python)
+- [Problem 7: Testing and Error Handling](#problem-7-testing-and-error-handling)
+- [Problem 8: Testing and Handling Errors](#problem-8-testing-and-handling-errors)
+- [Built-ins Quick Reference](#built-ins-quick-reference)
 
 ---
 
-## 2) Example: Safe BMI Calculation
+## Problem 1: Variables and Data Structures
 
+### Question (restated)
+Create these variables:
+1) `age = 45` (int)  
+2) `height = 1.75` (float)  
+3) `name = 'John Doe'` (str)  
+4) `symptoms = ['fever', 'cough', 'headache']` (list)  
+5) `patient_info = {'ID': 1, 'Name': 'John Doe', 'BMI': 23.5}` (dict)
+
+Then:
+- Print each variable’s **type** and **value**  
+- Add a new key `'age'` to `patient_info` and set it to `45`, and then update it (e.g., to `46`)
+
+### Solution
 ```python
-def calculate_bmi_safe(weight, height):
-    try:
-        if not (isinstance(weight, (int, float)) and isinstance(height, (int, float))):
-            raise TypeError("Weight and height must be numbers.")
-        bmi = weight / (height ** 2)
-    except ZeroDivisionError:
-        return "Error: Height cannot be zero."
-    except TypeError as e:
-        return f"Error: {e}"
-    else:
-        return bmi
-    finally:
-        # Always runs — good place to close files, release connections, etc.
-        pass
+# Define variables
+age = 45                       # int
+height = 1.75                  # float
+name = 'John Doe'              # str
+symptoms = ['fever', 'cough', 'headache']  # list
+patient_info = {'ID': 1, 'Name': 'John Doe', 'BMI': 23.5}  # dict
 
-print(calculate_bmi_safe(70, 1.75))
-print(calculate_bmi_safe(70, 0))
-print(calculate_bmi_safe("seventy", 1.75))
+# Print type and value for each
+print(type(age), age)
+print(type(height), height)
+print(type(name), name)
+print(type(symptoms), symptoms)
+print(type(patient_info), patient_info)
+
+# Add and update a new key 'age' in the dictionary
+patient_info['age'] = 45
+print("After adding age:", patient_info)
+
+patient_info['age'] = 46
+print("After updating age:", patient_info)
 ```
+
 **Expected Output**
 ```
-22.857142857142858
-Error: Height cannot be zero.
-Error: Weight and height must be numbers.
+<class 'int'> 45
+<class 'float'> 1.75
+<class 'str'> John Doe
+<class 'list'> ['fever', 'cough', 'headache']
+<class 'dict'> {'ID': 1, 'Name': 'John Doe', 'BMI': 23.5}
+After adding age: {'ID': 1, 'Name': 'John Doe', 'BMI': 23.5, 'age': 45}
+After updating age: {'ID': 1, 'Name': 'John Doe', 'BMI': 23.5, 'age': 46}
 ```
+
+**Built-ins used**
+- `type(x)`: returns the type of `x`.
+- `print(...)`: prints to the console.
+- List & dict literals: `[...]` and `{...}` create collections.
+- Dict item set/update: `patient_info['age'] = ...`.
 
 ---
 
-## 3) `else` and `finally` in Action
+## Problem 2: Operators in Python
 
+### Question (restated)
+Compute the risk score:
+\[
+\text{Risk} = \frac{(A + B)\times(C - D) + E}{F \times (G + H)} - I
+\]
+with: A=120, B=30, C=70, D=20, E=5, F=2, G=1, H=10, I=25.
+
+### Solution
 ```python
-def safe_divide(a, b):
-    try:
-        result = a / b
-    except ZeroDivisionError:
-        return "Error: cannot divide by zero"
-    else:
-        return f"Result: {result}"
-    finally:
-        # Always runs — even if an exception occurred
-        pass
+A, B, C, D, E, F, G, H, I = 120, 30, 70, 20, 5, 2, 1, 10, 25
 
-print(safe_divide(10, 2))
-print(safe_divide(10, 0))
+numerator = (A + B) * (C - D) + E
+denominator = F * (G + H)
+risk_score = numerator / denominator - I
+
+print("Numerator:", numerator)
+print("Denominator:", denominator)
+print("Risk Score:", risk_score)
 ```
+
+**Expected Output (approx.)**
+```
+Numerator: 7505
+Denominator: 22
+Risk Score: 316.1363636363636
+```
+
+**Built-ins used**
+- Arithmetic operators `+ - * /` follow standard math; `/` returns float.
+- `print(...)` to display results.
+
+---
+
+## Problem 3: Iteration in Python
+
+### Question (restated)
+Given pairs `(Age, Glucose)`:
+```
+(65, 110), (45, 90), (72, 150), (51, 105), (40, 85)
+```
+1) Average glucose for patients **over 50**  
+2) New list of **only those** glucose values  
+3) Print glucose values higher than threshold (e.g., 100)
+
+### Solution
+```python
+data = [(65, 110), (45, 90), (72, 150), (51, 105), (40, 85)]
+threshold = 100
+
+# Filter patients over 50 and collect their glucose levels
+glucose_over_50 = []
+for age, glucose in data:
+    if age > 50:
+        glucose_over_50.append(glucose)
+
+# Compute the average for the filtered list
+avg_glucose_over_50 = sum(glucose_over_50) / len(glucose_over_50)
+
+# Get glucose levels higher than threshold
+above_threshold = [g for _, g in data if g > threshold]
+
+print("Glucose (age>50):", glucose_over_50)
+print("Average glucose (age>50):", avg_glucose_over_50)
+print(f"Glucose > {threshold}:", above_threshold)
+```
+
 **Expected Output**
 ```
-Result: 5.0
-Error: cannot divide by zero
+Glucose (age>50): [110, 150, 105]
+Average glucose (age>50): 121.66666666666667
+Glucose > 100: [110, 150, 105]
 ```
+
+**Built-ins used**
+- `for ... in ...`: loop through items.
+- Tuple unpacking: `for age, glucose in data`.
+- `append(x)`: list method to add items.
+- `sum(list)`, `len(list)`: quick numeric helpers.
+- List comprehension: `[g for _, g in data if g > threshold]`.
 
 ---
 
-## 4) Raising Your Own Errors with `raise`
+## Problem 4: Iteration in Python
 
-```python
-def dosage_per_kg(weight, per_kg=0.5):
-    if not isinstance(weight, (int, float)) or weight <= 0:
-        raise ValueError("weight must be a positive number")
-    return weight * per_kg
-
-try:
-    print(dosage_per_kg(-10))
-except ValueError as e:
-    print("Caught:", e)
+### Question (restated)
+Count how many glucose readings are **strictly greater than 90** from:
 ```
+[85, 90, 78, 92, 88, 75, 85, 95, 89, 84]
+```
+
+### Solution
+```python
+glucose = [85, 90, 78, 92, 88, 75, 85, 95, 89, 84]
+threshold = 90
+
+count = 0
+for value in glucose:
+    if value > threshold:
+        count += 1
+
+print("Count above 90:", count)
+```
+
 **Expected Output**
 ```
-Caught: weight must be a positive number
+Count above 90: 2
 ```
+
+**Built-ins used**
+- `if ...:` inside loop for conditional counting.
+- `count += 1`: increment pattern.
+- `print(...)` for results.
 
 ---
 
-## 5) Unit Testing with `unittest`
+## Problem 5: Data Structures in Python
 
-### Why Unit Tests?
-- Prove your function works now.
-- Prevent bugs when you change code later.
-
-### Essentials
-- Create a class inheriting from `unittest.TestCase`.
-- Write methods that start with `test_...`.
-- Use assertions like `assertEqual`, `assertAlmostEqual`, `assertTrue`, `assertRaises`, etc.
-
-### Example: Tests for `calculate_bmi_safe`
+### Question (restated)
+Start with:
 ```python
-import unittest
+patients = [
+  {'ID': 1, 'Name': 'Alice',   'BMI': 22.4},
+  {'ID': 2, 'Name': 'Bob',     'BMI': 27.1},
+  {'ID': 3, 'Name': 'Charlie', 'BMI': 24.0}
+]
+```
+Do:
+1) Add a new patient  
+2) Remove patient by ID  
+3) Update BMI by ID
 
-def calculate_bmi_safe(weight, height):
-    try:
-        if not (isinstance(weight, (int, float)) and isinstance(height, (int, float))):
-            raise TypeError("Weight and height must be numbers.")
-        bmi = weight / (height ** 2)
-    except ZeroDivisionError:
-        return "Error: Height cannot be zero."
-    except TypeError as e:
-        return f"Error: {e}"
-    return bmi
+### Solution
+```python
+patients = [
+    {'ID': 1, 'Name': 'Alice',   'BMI': 22.4},
+    {'ID': 2, 'Name': 'Bob',     'BMI': 27.1},
+    {'ID': 3, 'Name': 'Charlie', 'BMI': 24.0},
+]
 
-class TestCalculateBmiSafe(unittest.TestCase):
-    def test_valid_input(self):
-        self.assertAlmostEqual(calculate_bmi_safe(70, 1.75), 22.8571428571, places=4)
+# 1) Add new patient
+new_patient = {'ID': 4, 'Name': 'Diana', 'BMI': 26.3}
+patients.append(new_patient)
 
-    def test_zero_height(self):
-        self.assertEqual(calculate_bmi_safe(70, 0), "Error: Height cannot be zero.")
+# 2) Remove patient with ID=2
+patients = [p for p in patients if p['ID'] != 2]
 
-    def test_non_numeric_input(self):
-        self.assertEqual(
-            calculate_bmi_safe("seventy", 1.75),
-            "Error: Weight and height must be numbers."
-        )
+# 3) Update BMI for ID=3 (e.g., to 25.0)
+for p in patients:
+    if p['ID'] == 3:
+        p['BMI'] = 25.0
 
-# In a script:
-# if __name__ == "__main__":
-#     unittest.main()
+print(patients)
 ```
 
-> **Why `assertAlmostEqual`?** Floating-point math can have tiny rounding differences; this assertion allows tolerance via `places`.
+**Expected Output**
+```
+[{'ID': 1, 'Name': 'Alice', 'BMI': 22.4},
+ {'ID': 3, 'Name': 'Charlie', 'BMI': 25.0},
+ {'ID': 4, 'Name': 'Diana', 'BMI': 26.3}]
+```
+
+**Built-ins used**
+- `append(item)` to add to list.
+- List comprehension for filtering.
+- Dict access/update: `p['BMI'] = ...`.
 
 ---
 
-## 6) Integration Testing (components working together)
+## Problem 6: Functions in Python
 
+### Question (restated)
+Create:
+- `calculate_bmi(weight, height)` → BMI = weight / (height**2)  
+- `categorize_bmi(bmi)` → return one of: `Underweight`, `Normal weight`, `Overweight`, `Obese`
+
+### Solution
 ```python
-def calculate_health_risk(bmi, age, bp, cholesterol, smoker=False):
-    try:
-        if not all(isinstance(x, (int, float)) for x in (bmi, age, bp, cholesterol)):
-            raise TypeError("BMI, age, blood pressure, and cholesterol must be numbers.")
-        if bmi <= 0 or age <= 0 or bp <= 0 or cholesterol <= 0:
-            raise ValueError("All inputs must be positive.")
-        risk = (bmi * 0.2) + (age * 0.3) + (bp * 0.3) + (cholesterol * 0.2)
-        if smoker:
-            risk *= 1.5
-        return risk
-    except (TypeError, ValueError) as e:
-        return f"Error: {e}"
-
-import unittest
-
-class TestHealthRiskIntegration(unittest.TestCase):
-    def test_valid(self):
-        self.assertAlmostEqual(calculate_health_risk(22.5, 45, 120, 200), 60.5, places=1)
-
-    def test_smoker(self):
-        self.assertAlmostEqual(calculate_health_risk(22.5, 45, 120, 200, smoker=True), 90.75, places=2)
-
-    def test_bad_types(self):
-        self.assertEqual(
-            calculate_health_risk("22.5", 45, 120, 200),
-            "Error: BMI, age, blood pressure, and cholesterol must be numbers."
-        )
-```
-
----
-
-## 7) Edge-Case Testing
-
-Test extremes and boundaries (very small/large values, zero, negatives, empty lists, wrong types).
-
-```python
-def calculate_dosage(weight, age, dosage_per_kg=0.5):
-    try:
-        if not (isinstance(weight, (int, float)) and isinstance(age, (int, float))):
-            raise TypeError("Weight and age must be numbers.")
-        if weight <= 0 or age <= 0:
-            raise ValueError("Weight and age must be positive numbers.")
-        dose = weight * dosage_per_kg
-        if age < 12:        # child adjustment
-            dose *= 0.75
-        return dose
-    except (TypeError, ValueError) as e:
-        return f"Error: {e}"
-
-import unittest
-
-class TestDosageEdgeCases(unittest.TestCase):
-    def test_high_dosage(self):
-        self.assertAlmostEqual(calculate_dosage(200, 30, dosage_per_kg=10), 2000.0, places=1)
-
-    def test_low_dosage(self):
-        # 0.1 * 0.01 = 0.001; child factor 0.75 => 0.00075
-        self.assertAlmostEqual(calculate_dosage(0.1, 1, dosage_per_kg=0.01), 0.00075, places=5)
-
-    def test_zero_weight(self):
-        self.assertEqual(calculate_dosage(0, 30), "Error: Weight and age must be positive numbers.")
-
-    def test_negative_age(self):
-        self.assertEqual(calculate_dosage(70, -1), "Error: Weight and age must be positive numbers.")
-```
-
----
-
-## 8) Helpful Patterns & Tips
-
-- **AAA** (Arrange–Act–Assert): structure tests clearly.
-- **One behavior per test**: small, focused, readable.
-- **Use specific assertions**: `assertAlmostEqual` for floats, `assertRaises` for expected exceptions.
-- **Keep tests independent**: no shared state between tests.
-- **Name tests clearly**: e.g., `test_zero_height_returns_error`.
-- **Continuous Testing**: run tests often (e.g., `python -m unittest` or `pytest`).
-
----
-
-## 9) Bonus: Assertions & Custom Exceptions
-
-### Assertions (developer checks)
-```python
-def age_to_decade(age):
-    assert isinstance(age, (int, float)) and age >= 0, "age must be a non-negative number"
-    return int(age // 10)
-```
-> Use assertions for internal sanity checks, not user-facing validation.
-
-### Custom Exceptions
-```python
-class ClinicalDataError(Exception):
-    """Base error for clinical data issues."""
-
-class InvalidBmiError(ClinicalDataError):
-    pass
-
-def checked_bmi(weight, height):
-    if height == 0:
-        raise InvalidBmiError("Height cannot be zero.")
+def calculate_bmi(weight, height):
     return weight / (height ** 2)
 
-try:
-    checked_bmi(70, 0)
-except InvalidBmiError as e:
-    print("Caught:", e)
+def categorize_bmi(bmi):
+    if bmi < 18.5:
+        return "Underweight"
+    elif 18.5 <= bmi < 24.9:
+        return "Normal weight"
+    elif 25 <= bmi < 29.9:
+        return "Overweight"
+    else:
+        return "Obese"
+
+bmi_value = calculate_bmi(70, 1.75)
+print("BMI:", bmi_value)
+print("Category:", categorize_bmi(bmi_value))
 ```
+
 **Expected Output**
 ```
-Caught: Height cannot be zero.
+BMI: 22.857142857142858
+Category: Normal weight
 ```
 
+**Built-ins used**
+- Function definition `def ...` and `return` to output values.
+- `print(...)` for display.
+
 ---
 
-## 10) Final Exercise (with solution pattern)
+## Problem 7: Testing and Error Handling
 
-**Task:** Implement `calculate_health_risk_score` with validation & tests:
-- Inputs: `bmi`, `age`, `medical_history` (list), `smoker` flag.
-- Validate types/values, return informative errors.
-- Write unit tests for valid, invalid, and boundary cases.
+### Question (restated)
+Define `safe_divide(numerator, denominator)`:
+- If denominator is zero, **return `None`** and **print** an error message.
+- Otherwise return the result.  
+Test with `(10, 2)` and `(10, 0)`.
 
-**Solution pattern:**
+### Solution
 ```python
-import unittest
-
-def calculate_health_risk_score(bmi, age, medical_history, smoker=False):
-    """Calculate a health risk score based on BMI, age, and medical history.
-
-    Parameters:
-        bmi (float): BMI (> 0)
-        age (int|float): age in years (> 0)
-        medical_history (list[str]): conditions, e.g., ["heart disease", "diabetes"]
-        smoker (bool): whether the patient smokes
-
-    Returns:
-        float | str: risk score (higher = riskier) or an error message.
-    """
+def safe_divide(numerator, denominator):
     try:
-        if not isinstance(bmi, (int, float)) or not isinstance(age, (int, float)) or not isinstance(medical_history, list):
-            raise TypeError("BMI must be a number, age must be a number, and medical history must be a list.")
-        if bmi <= 0 or age <= 0:
-            raise ValueError("BMI and age must be positive numbers.")
-        risk = (bmi * 0.3) + (age * 0.4)
-        if "heart disease" in medical_history:
-            risk += 20
-        if "diabetes" in medical_history:
-            risk += 10
-        if smoker:
-            risk *= 1.5
-        return risk
-    except (TypeError, ValueError) as e:
-        return f"Error: {e}"
-
-class TestHealthRiskScoreCalculator(unittest.TestCase):
-    def test_valid(self):
-        self.assertAlmostEqual(calculate_health_risk_score(25, 50, ["high cholesterol"]), 27.5, places=1)
-
-    def test_with_history(self):
-        self.assertAlmostEqual(
-            calculate_health_risk_score(25, 50, ["heart disease", "diabetes"]),
-            (25*0.3 + 50*0.4) + 20 + 10, places=4
-        )
-
-    def test_smoker(self):
-        base = (25*0.3 + 50*0.4)
-        self.assertAlmostEqual(calculate_health_risk_score(25, 50, [], smoker=True), base * 1.5, places=4)
-
-    def test_bad_types(self):
-        self.assertEqual(
-            calculate_health_risk_score("25", 50, []),
-            "Error: BMI must be a number, age must be a number, and medical history must be a list."
-        )
-        self.assertEqual(
-            calculate_health_risk_score(25, 50, "not a list"),
-            "Error: BMI must be a number, age must be a number, and medical history must be a list."
-        )
-
-    def test_bad_values(self):
-        self.assertEqual(calculate_health_risk_score(0, 50, []), "Error: BMI and age must be positive numbers.")
-        self.assertEqual(calculate_health_risk_score(25, 0, []), "Error: BMI and age must be positive numbers.")
-
-# In a script:
-# if __name__ == "__main__":
-#     unittest.main()
-```
----
-
-## Quick Reference
-
-- **Error handling:** `try / except / else / finally`
-- **Raise error:** `raise ValueError("message")`
-- **Type check:** `isinstance(x, (int, float))`
-- **Unit tests:** subclass `unittest.TestCase` and write `test_...` methods
-- **Float asserts:** `assertAlmostEqual(x, y, places=n)`
-- **Run tests:** `python -m unittest` or `pytest`
-
-**One‑line takeaway:**  
-Handle errors clearly, validate inputs early, and write small, focused tests—you’ll catch bugs faster and ship more reliable code.
-
-
-
-> BONUS ON WHEN TO TEST
-
-# Why Test? When to Test? Where to Use `try/except` — A Beginner’s Guide
-
-This mini‑guide gives you practical rules you can use today: **when to write tests**, **what to test**, and **where (and where not) to write `try/except`**.
-
----
-
-## 1) Why test at all?
-- **Catch bugs early** before they reach users.
-- **Document behavior**: tests explain how your code should work.
-- **Enable refactoring** safely: if tests still pass, you didn’t break things.
-- **Build confidence** to change or add features quickly.
-
----
-
-## 2) When should you test? (Simple timeline)
-
-1. **As you write each function (Unit tests)**
-   - Write 1–3 tests for normal cases + a couple of edge cases.
-2. **Before refactoring**
-   - Add/extend tests first, then refactor; tests guard behavior.
-3. **After fixing a bug (Regression tests)**
-   - Add a test that *reproduces* the bug; keep it so it never returns.
-4. **When wiring components (Integration tests)**
-   - Test how functions/modules work *together*.
-5. **On every change (Continuous Integration)**
-   - Run tests automatically in CI (e.g., GitHub Actions).
-
-> **Test pyramid**: many **unit** tests, fewer **integration** tests, very few **end‑to‑end** tests.
-
----
-
-## 3) What types of tests?
-
-- **Unit tests**: one small function/class. Fast, precise feedback.
-- **Integration tests**: multiple parts working together (e.g., parse → validate → save).
-- **End‑to‑end**: simulate a user flow. Slower; keep these few.
-- **Regression tests**: lock in fixed bugs so they don’t come back.
-
----
-
-## 4) Should you put `try/except` in every function? (No.)
-
-Use `try/except` **strategically**, not everywhere.
-
-### Good places for `try/except`
-- **At boundaries** where errors are expected:
-  - user input, file I/O, network calls, database operations, parsing external data.
-- **Top‑level / entry points** (e.g., `main()` or a web request handler)
-  - Catch unhandled exceptions, log, show a friendly message.
-- **Where you can recover or add context**
-  - Transform a low‑level error into a clear, actionable message.
-
-### Avoid blanket `try/except`
-- **Deep inside core logic** (let exceptions bubble up).
-- **`except Exception:`** without re‑raising (masks real bugs).
-- **Silent excepts** that hide problems.
-
-### Best practices
-- Catch **specific** exceptions (e.g., `ValueError`, `ZeroDivisionError`).
-- Keep **try blocks small** (wrap only the risky line or two).
-- Use **validation** and **meaningful error messages**.
-- Prefer **EAFP** (“try it and handle failure”) when it’s clearer than over‑checking.
-
----
-
-## 5) Tiny examples
-
-### A) Let exceptions bubble; handle near the top‑level
-```python
-def bmi(weight, height):
-    # Core logic stays simple
-    return weight / (height ** 2)
-
-def main():
-    try:
-        print(bmi(70, 1.75))   # OK
-        print(bmi(70, 0))      # Raises ZeroDivisionError
+        return numerator / denominator
     except ZeroDivisionError:
-        print("Height can’t be zero.")
-    except TypeError:
-        print("Weight and height must be numbers.")
-
-# main()
-```
-
-### B) Handle errors at the boundary (file I/O + parsing)
-```python
-def read_floats(path):
-    with open(path) as f:
-        return [float(line.strip()) for line in f]
-
-def load_data(path):
-    try:
-        return read_floats(path)
-    except FileNotFoundError:
-        return "Error: file not found."
-    except ValueError:
-        return "Error: file contains non‑numeric values."
-```
-
-### C) Narrow try/except with small scope
-```python
-def safe_div(a, b):
-    try:
-        return a / b
-    except ZeroDivisionError:
-        return None  # or raise ValueError("b must not be zero")
-```
-
-### D) EAFP (try) vs LBYL (check)
-```python
-# EAFP: try first, handle failures
-def first_item(seq):
-    try:
-        return seq[0]
-    except (TypeError, IndexError):
+        print("Error: Denominator cannot be zero.")
         return None
 
-# LBYL: check before acting
-def first_item_lbyl(seq):
-    if isinstance(seq, (list, tuple)) and len(seq) > 0:
-        return seq[0]
-    return None
+print("10 / 2 =", safe_divide(10, 2))
+print("10 / 0 =", safe_divide(10, 0))
 ```
+
+**Expected Output**
+```
+10 / 2 = 5.0
+Error: Denominator cannot be zero.
+10 / 0 = None
+```
+
+**Built-ins used**
+- `try/except` to catch runtime errors.
+- `ZeroDivisionError` is raised on division by zero.
+- `print(...)` for a user-friendly message.
 
 ---
 
-## 6) Minimal unit testing pattern (`unittest`)
+## Problem 8: Testing and Handling Errors
+
+### Question (restated)
+Define `divide_numbers(a, b)`:
+- If `b == 0`, return: `"Error: division by zero is not allowed"`
+- If either input is not a number, return: `"Error: inputs must be numbers"`
+- Otherwise return `a / b`.
+
+### Solution
 ```python
-import unittest
+def divide_numbers(a, b):
+    try:
+        # Type check: must be int or float
+        if not (isinstance(a, (int, float)) and isinstance(b, (int, float))):
+            raise TypeError("inputs must be numbers")
+        # Value check: b cannot be zero
+        if b == 0:
+            raise ZeroDivisionError("division by zero is not allowed")
+        return a / b
+    except TypeError:
+        return "Error: inputs must be numbers"
+    except ZeroDivisionError:
+        return "Error: division by zero is not allowed"
 
-def dosage_per_kg(weight, per_kg=0.5):
-    if not isinstance(weight, (int, float)) or weight <= 0:
-        raise ValueError("weight must be a positive number")
-    return weight * per_kg
-
-class TestDosage(unittest.TestCase):
-    def test_happy_path(self):
-        self.assertAlmostEqual(dosage_per_kg(80), 40.0)
-
-    def test_invalid_weight(self):
-        with self.assertRaises(ValueError):
-            dosage_per_kg(0)
-
-# if __name__ == "__main__":
-#     unittest.main()
+print(divide_numbers(10, 2))     # valid
+print(divide_numbers(10, 0))     # division by zero
+print(divide_numbers("a", 2))    # not numbers
 ```
+
+**Expected Output**
+```
+5.0
+Error: division by zero is not allowed
+Error: inputs must be numbers
+```
+
+**Built-ins used**
+- `isinstance(x, (int, float))`: safe type checking.
+- `raise`: create and handle your own exceptions.
+- `try/except`: convert low-level errors to friendly messages.
 
 ---
 
-## 7) Quick checklist
+## Built-ins Quick Reference
 
-- ✅ Write tests:
-  - when adding a function,
-  - when fixing a bug,
-  - before refactoring,
-  - when integrating parts,
-  - and in CI on every change.
-- ✅ Use `try/except`:
-  - at I/O & user‑input boundaries,
-  - with *specific* exceptions and *small* try blocks,
-  - where you can recover or add helpful context.
-- ❌ Don’t:
-  - wrap everything in `try/except`,
-  - swallow errors or use `except Exception:` broadly,
-  - hide failures—make them visible and understandable.
+- **`print(value, ...)`** → display output.
+- **`type(x)`** → returns the type of `x`.
+- **`isinstance(x, (T1, T2))`** → checks if `x` is an instance of any given types.
+- **`len(seq)`** → number of items in a sequence.
+- **`sum(iterable)`** → sum of numbers.
+- **`list.append(x)`** → add `x` to the end.
+- **List comprehension** → concise list creation/filtering.
+- **`try/except`** → handle runtime errors gracefully.
+- **`raise Error("msg")`** → signal a specific error on purpose.
+- **Dictionaries** → key-value pairs: `d['key']`, `d['key']=value`.
 
-**Bottom line:** test early and often; catch errors where they make sense; keep core logic clean.
+---
+
