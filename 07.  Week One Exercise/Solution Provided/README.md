@@ -1,259 +1,200 @@
-# Python Week One — Exercises & Solutions (Beginner-Friendly)
+<img src="./intro_images/logo_excercises.png" width="100%" align="left" />
+<table style="float:right;">
+    <tr>
+        <td>                      
+            <div style="text-align: right">Dr Ali Sarrami Foroushani</div>
+            <div style="text-align: right">Lecturer in Cardiovascular Biomechanics</div>
+            <div style="text-align: right">School of Health Sciences</div>
+            <div style="text-align: right">University of Manchester</div>
+         </td>
+     </tr>
+</table>
 
-This README collects the week-one exercises **with** clear solutions, sample outputs, and brief explanations of each built-in used.  
-You can paste any code block into a Python file or Jupyter notebook and run it.
+# Python Week One - Excercises
 
----
-
-## Table of Contents
-- [Problem 1: Variables and Data Structures](#problem-1-variables-and-data-structures)
-- [Problem 2: Operators in Python](#problem-2-operators-in-python)
-- [Problem 3: Iteration in Python](#problem-3-iteration-in-python)
-- [Problem 4: Iteration in Python](#problem-4-iteration-in-python)
-- [Problem 5: Data Structures in Python](#problem-5-data-structures-in-python)
-- [Problem 6: Functions in Python](#problem-6-functions-in-python)
-- [Problem 7: Testing and Error Handling](#problem-7-testing-and-error-handling)
-- [Problem 8: Testing and Handling Errors](#problem-8-testing-and-handling-errors)
-- [Built-ins Quick Reference](#built-ins-quick-reference)
-
----
+This notebook contains some exercises to evaluate your knowledge in Python, including variables, operators, iteration, data structures, functions, testing, NumPy, vectorised computation, and pandas. Each problem is followed by a code cell for you to write your solution.
 
 ## Problem 1: Variables and Data Structures
 
-### Question (restated)
-Create these variables:
-1) `age = 45` (int)  
-2) `height = 1.75` (float)  
-3) `name = 'John Doe'` (str)  
-4) `symptoms = ['fever', 'cough', 'headache']` (list)  
-5) `patient_info = {'ID': 1, 'Name': 'John Doe', 'BMI': 23.5}` (dict)
+Define the following variables and use them in expressions:
+1. An integer variable `age` with a value of 45.
+2. A floating-point variable `height` with a value of 1.75.
+3. A string variable `name` with the value `'John Doe'`.
+4. A list `symptoms` containing the strings `['fever', 'cough', 'headache']`.
+5. A dictionary `patient_info` with keys `'ID'`, `'Name'`, and `'BMI'`, and corresponding values of 1, `'John Doe'`, and 23.5.
 
-Then:
-- Print each variable’s **type** and **value**  
-- Add a new key `'age'` to `patient_info` and set it to `45`, and then update it (e.g., to `46`)
+Print the types and values of these variables. Create a new key `'age'` in the dictionary and update its value.
 
-### Solution
+Write your code below.
 ```python
 # Define variables
-age = 45                       # int
-height = 1.75                  # float
-name = 'John Doe'              # str
-symptoms = ['fever', 'cough', 'headache']  # list
-patient_info = {'ID': 1, 'Name': 'John Doe', 'BMI': 23.5}  # dict
+age = 45
+height = 1.75
+name = 'John Doe'
+symptoms = ['fever', 'cough', 'headache']
+patient_info = {'ID': 1, 'Name': 'John Doe', 'BMI': 23.5}
 
-# Print type and value for each
-print(type(age), age)
-print(type(height), height)
-print(type(name), name)
-print(type(symptoms), symptoms)
-print(type(patient_info), patient_info)
+# Print types and values
+print('Type of age:', type(age))
+print('Value of age:', age)
+print('Type of height:', type(height))
+print('Value of height:', height)
+print('Type of name:', type(name))
+print('Value of name:', name)
+print('Type of symptoms:', type(symptoms))
+print('Value of symptoms:', symptoms)
+print('Type of patient_info:', type(patient_info))
+print('Value of patient_info:', patient_info)
 
-# Add and update a new key 'age' in the dictionary
+# Update dictionary
 patient_info['age'] = 45
-print("After adding age:", patient_info)
-
-patient_info['age'] = 46
-print("After updating age:", patient_info)
+print('Updated patient_info:', patient_info)
 ```
-
-**Expected Output**
-```
-<class 'int'> 45
-<class 'float'> 1.75
-<class 'str'> John Doe
-<class 'list'> ['fever', 'cough', 'headache']
-<class 'dict'> {'ID': 1, 'Name': 'John Doe', 'BMI': 23.5}
-After adding age: {'ID': 1, 'Name': 'John Doe', 'BMI': 23.5, 'age': 45}
-After updating age: {'ID': 1, 'Name': 'John Doe', 'BMI': 23.5, 'age': 46}
-```
-
-**Built-ins used**
-- `type(x)`: returns the type of `x`.
-- `print(...)`: prints to the console.
-- List & dict literals: `[...]` and `{...}` create collections.
-- Dict item set/update: `patient_info['age'] = ...`.
-
----
-
 ## Problem 2: Operators in Python
 
-### Question (restated)
-Compute the risk score:
-\[
-\text{Risk} = \frac{(A + B)\times(C - D) + E}{F \times (G + H)} - I
-\]
-with: A=120, B=30, C=70, D=20, E=5, F=2, G=1, H=10, I=25.
+Calculate the following formula related to a patient's risk score:
 
-### Solution
+$$\text{Risk Score} = \frac{(A + B) \times (C - D) + E}{F \times (G + H)} - I$$
+
+Where:
+
+- $A = 120$ (Blood Pressure)
+- $B = 30$ (Cholesterol Level)
+- $C = 70$ (Heart Rate)
+- $D = 20$ (Exercise Minutes per Week)
+- $E = 5$ (Medication Score)
+- $F = 2$ (Diabetes Score)
+- $G = 1$ (Smoker Status: 1 if smoker, 0 otherwise)
+- $H = 10$ (Alcohol Consumption Score)
+- $I = 25$ (Base Risk)
+
+Substitute the parameters and compute the final risk score.
+
+Write your code below.
 ```python
-A, B, C, D, E, F, G, H, I = 120, 30, 70, 20, 5, 2, 1, 10, 25
+# Solution for Problem 2
+A = 120
+B = 30
+C = 70
+D = 20
+E = 5
+F = 2
+G = 1
+H = 10
+I = 25
 
-numerator = (A + B) * (C - D) + E
-denominator = F * (G + H)
-risk_score = numerator / denominator - I
-
-print("Numerator:", numerator)
-print("Denominator:", denominator)
+risk_score = ((A + B) * (C - D) + E) / (F * (G + H)) - I
 print("Risk Score:", risk_score)
 ```
-
-**Expected Output (approx.)**
-```
-Numerator: 7505
-Denominator: 22
-Risk Score: 316.1363636363636
-```
-
-**Built-ins used**
-- Arithmetic operators `+ - * /` follow standard math; `/` returns float.
-- `print(...)` to display results.
-
----
-
 ## Problem 3: Iteration in Python
 
-### Question (restated)
-Given pairs `(Age, Glucose)`:
-```
-(65, 110), (45, 90), (72, 150), (51, 105), (40, 85)
-```
-1) Average glucose for patients **over 50**  
-2) New list of **only those** glucose values  
-3) Print glucose values higher than threshold (e.g., 100)
+You are given the following patient data (age and glucose level):
 
-### Solution
+| Age | Glucose Level (mg/dL) |
+|-----|-----------------------|
+| 65  | 110                   |
+| 45  | 90                    |
+| 72  | 150                   |
+| 51  | 105                   |
+| 40  | 85                    |
+
+Perform the following tasks:
+- Iterate through the list to calculate the average glucose level for patients over the age of 50.
+- Create a new list containing only the glucose levels of those patients.
+- Identify and print the glucose levels of patients with glucose levels higher than a specified threshold (e.g., 100 mg/dL).
+
+Write your code below.
 ```python
-data = [(65, 110), (45, 90), (72, 150), (51, 105), (40, 85)]
-threshold = 100
+# Solution for Problem 3
+patient_data = [(65, 110), (45, 90), (72, 150), (51, 105), (40, 85)] # (age, glucose level)
 
-# Filter patients over 50 and collect their glucose levels
-glucose_over_50 = []
-for age, glucose in data:
-    if age > 50:
-        glucose_over_50.append(glucose)
+# Extract glucose levels for patients over 50
+over_50_glucose = [glucose for age, glucose in patient_data if age > 50]
 
-# Compute the average for the filtered list
-avg_glucose_over_50 = sum(glucose_over_50) / len(glucose_over_50)
+# Calculate the average glucose level
+average_glucose = sum(over_50_glucose) / len(over_50_glucose)
+print("Average glucose level for patients over 50:", average_glucose)
 
-# Get glucose levels higher than threshold
-above_threshold = [g for _, g in data if g > threshold]
-
-print("Glucose (age>50):", glucose_over_50)
-print("Average glucose (age>50):", avg_glucose_over_50)
-print(f"Glucose > {threshold}:", above_threshold)
+# Glucose levels over 100
+high_glucose = [glucose for age, glucose in patient_data if glucose > 100]
+print("Glucose levels over 100:", high_glucose)
 ```
-
-**Expected Output**
-```
-Glucose (age>50): [110, 150, 105]
-Average glucose (age>50): 121.66666666666667
-Glucose > 100: [110, 150, 105]
-```
-
-**Built-ins used**
-- `for ... in ...`: loop through items.
-- Tuple unpacking: `for age, glucose in data`.
-- `append(x)`: list method to add items.
-- `sum(list)`, `len(list)`: quick numeric helpers.
-- List comprehension: `[g for _, g in data if g > threshold]`.
-
----
-
 ## Problem 4: Iteration in Python
 
-### Question (restated)
-Count how many glucose readings are **strictly greater than 90** from:
-```
-[85, 90, 78, 92, 88, 75, 85, 95, 89, 84]
-```
+Given a list of blood glucose levels for different patients, find the number of patients with glucose levels above a certain threshold. The threshold is 90 mg/dL.
 
-### Solution
+Use the following data:
+- `[85, 90, 78, 92, 88, 75, 85, 95, 89, 84]`
+
+Write a loop to count how many glucose levels exceed this threshold.
+
+Write your code below.
 ```python
-glucose = [85, 90, 78, 92, 88, 75, 85, 95, 89, 84]
+# Solution for Problem 4
+# Blood glucose levels
+glucose_levels = [85, 90, 78, 92, 88, 75, 85, 95, 89, 84]
+
+# Threshold
 threshold = 90
 
+# Count patients with glucose levels above threshold
 count = 0
-for value in glucose:
-    if value > threshold:
+for level in glucose_levels:
+    if level > threshold:
         count += 1
-
-print("Count above 90:", count)
+print('Number of patients with glucose levels above the threshold:', count)
 ```
-
-**Expected Output**
-```
-Count above 90: 2
-```
-
-**Built-ins used**
-- `if ...:` inside loop for conditional counting.
-- `count += 1`: increment pattern.
-- `print(...)` for results.
-
----
-
 ## Problem 5: Data Structures in Python
 
-### Question (restated)
-Start with:
+Create a list of dictionaries where each dictionary contains patient information. Perform the following operations:
+
+1. Add a new patient record.
+2. Remove a patient record based on the patient ID.
+3. Update the BMI of an existing patient based on the patient ID.
+
+Use the following initial data:
 ```python
-patients = [
-  {'ID': 1, 'Name': 'Alice',   'BMI': 22.4},
-  {'ID': 2, 'Name': 'Bob',     'BMI': 27.1},
-  {'ID': 3, 'Name': 'Charlie', 'BMI': 24.0}
-]
+[{'ID': 1, 'Name': 'Alice', 'BMI': 22.4},
+ {'ID': 2, 'Name': 'Bob', 'BMI': 27.1},
+ {'ID': 3, 'Name': 'Charlie', 'BMI': 24.0}]
 ```
-Do:
-1) Add a new patient  
-2) Remove patient by ID  
-3) Update BMI by ID
-
-### Solution
+Write your code below.
 ```python
-patients = [
-    {'ID': 1, 'Name': 'Alice',   'BMI': 22.4},
-    {'ID': 2, 'Name': 'Bob',     'BMI': 27.1},
-    {'ID': 3, 'Name': 'Charlie', 'BMI': 24.0},
-]
+# Solution for Problem 5
+# Initial data
+patients = [{'ID': 1, 'Name': 'Alice', 'BMI': 22.4},
+            {'ID': 2, 'Name': 'Bob', 'BMI': 27.1},
+            {'ID': 3, 'Name': 'Charlie', 'BMI': 24.0}]
 
-# 1) Add new patient
-new_patient = {'ID': 4, 'Name': 'Diana', 'BMI': 26.3}
+# Add a new patient
+new_patient = {'ID': 4, 'Name': 'David', 'BMI': 26.5}
 patients.append(new_patient)
 
-# 2) Remove patient with ID=2
+# Remove a patient
 patients = [p for p in patients if p['ID'] != 2]
 
-# 3) Update BMI for ID=3 (e.g., to 25.0)
+# Update BMI
 for p in patients:
     if p['ID'] == 3:
         p['BMI'] = 25.0
 
-print(patients)
+print('Updated patient records:', patients)
 ```
-
-**Expected Output**
-```
-[{'ID': 1, 'Name': 'Alice', 'BMI': 22.4},
- {'ID': 3, 'Name': 'Charlie', 'BMI': 25.0},
- {'ID': 4, 'Name': 'Diana', 'BMI': 26.3}]
-```
-
-**Built-ins used**
-- `append(item)` to add to list.
-- List comprehension for filtering.
-- Dict access/update: `p['BMI'] = ...`.
-
----
-
 ## Problem 6: Functions in Python
 
-### Question (restated)
-Create:
-- `calculate_bmi(weight, height)` → BMI = weight / (height**2)  
-- `categorize_bmi(bmi)` → return one of: `Underweight`, `Normal weight`, `Overweight`, `Obese`
+Define a function `calculate_bmi(weight, height)` that calculates the Body Mass Index (BMI) given a patient's weight (in kilograms) and height (in meters). The formula for BMI is:
 
-### Solution
+$$\text{BMI} = \frac{\text{weight}}{\text{height}^2}$$
+
+Additionally, write a function `categorize_bmi(bmi)` that categorizes the BMI value into:
+- Underweight: BMI < 18.5
+- Normal weight: 18.5 <= BMI < 24.9
+- Overweight: 25 <= BMI < 29.9
+- Obese: BMI >= 30
+
+Write your code below.
 ```python
+# Solution for Problem 6
 def calculate_bmi(weight, height):
     return weight / (height ** 2)
 
@@ -267,113 +208,60 @@ def categorize_bmi(bmi):
     else:
         return "Obese"
 
-bmi_value = calculate_bmi(70, 1.75)
-print("BMI:", bmi_value)
-print("Category:", categorize_bmi(bmi_value))
+# Example usage
+weight = 70
+height = 1.75
+bmi = calculate_bmi(weight, height)
+category = categorize_bmi(bmi)
+print(f"BMI: {bmi:.2f}, Category: {category}")
 ```
+## Problem 7: Testing and Error Handling in Python
 
-**Expected Output**
-```
-BMI: 22.857142857142858
-Category: Normal weight
-```
+Write a function `safe_divide(numerator, denominator)` that safely divides two numbers and handles division by zero errors. The function should return `None` if the denominator is zero and print an error message.
 
-**Built-ins used**
-- Function definition `def ...` and `return` to output values.
-- `print(...)` for display.
+Test this function with the following pairs:
+- numerator = 10, denominator = 2
+- numerator = 10, denominator = 0
 
----
-
-## Problem 7: Testing and Error Handling
-
-### Question (restated)
-Define `safe_divide(numerator, denominator)`:
-- If denominator is zero, **return `None`** and **print** an error message.
-- Otherwise return the result.  
-Test with `(10, 2)` and `(10, 0)`.
-
-### Solution
+Write your code below.
 ```python
+# Solution for Problem 7
+# Function to safely divide two numbers
 def safe_divide(numerator, denominator):
     try:
-        return numerator / denominator
+        result = numerator / denominator
     except ZeroDivisionError:
-        print("Error: Denominator cannot be zero.")
+        print('Error: Division by zero is not allowed.')
         return None
+    return result
 
-print("10 / 2 =", safe_divide(10, 2))
-print("10 / 0 =", safe_divide(10, 0))
+# Test cases
+print('Result 1:', safe_divide(10, 2))
+print('Result 2:', safe_divide(10, 0))
 ```
+## Problem 8: Testing and Handling Errors in Python
 
-**Expected Output**
-```
-10 / 2 = 5.0
-Error: Denominator cannot be zero.
-10 / 0 = None
-```
+Write a function `divide_numbers(a, b)` that takes two numbers `a` and `b` and returns the result of dividing `a` by `b`. Handle the following scenarios using exceptions:
+- If `b` is zero, raise an error and return a message saying division by zero is not allowed.
+- If either `a` or `b` is not a number, raise an error and return a message saying inputs must be numbers.
 
-**Built-ins used**
-- `try/except` to catch runtime errors.
-- `ZeroDivisionError` is raised on division by zero.
-- `print(...)` for a user-friendly message.
-
----
-
-## Problem 8: Testing and Handling Errors
-
-### Question (restated)
-Define `divide_numbers(a, b)`:
-- If `b == 0`, return: `"Error: division by zero is not allowed"`
-- If either input is not a number, return: `"Error: inputs must be numbers"`
-- Otherwise return `a / b`.
-
-### Solution
+Write your code below.
 ```python
+# Solution for Problem 8
 def divide_numbers(a, b):
     try:
-        # Type check: must be int or float
-        if not (isinstance(a, (int, float)) and isinstance(b, (int, float))):
-            raise TypeError("inputs must be numbers")
-        # Value check: b cannot be zero
-        if b == 0:
-            raise ZeroDivisionError("division by zero is not allowed")
         return a / b
-    except TypeError:
-        return "Error: inputs must be numbers"
     except ZeroDivisionError:
-        return "Error: division by zero is not allowed"
+        return "Error: Division by zero is not allowed."
+    except TypeError:
+        return "Error: Inputs must be numbers."
 
-print(divide_numbers(10, 2))     # valid
-print(divide_numbers(10, 0))     # division by zero
-print(divide_numbers("a", 2))    # not numbers
+# Example usage
+result1 = divide_numbers(10, 2)
+result2 = divide_numbers(10, 0)
+result3 = divide_numbers(10, "five")
+
+print(result1)
+print(result2)
+print(result3)
 ```
-
-**Expected Output**
-```
-5.0
-Error: division by zero is not allowed
-Error: inputs must be numbers
-```
-
-**Built-ins used**
-- `isinstance(x, (int, float))`: safe type checking.
-- `raise`: create and handle your own exceptions.
-- `try/except`: convert low-level errors to friendly messages.
-
----
-
-## Built-ins Quick Reference
-
-- **`print(value, ...)`** → display output.
-- **`type(x)`** → returns the type of `x`.
-- **`isinstance(x, (T1, T2))`** → checks if `x` is an instance of any given types.
-- **`len(seq)`** → number of items in a sequence.
-- **`sum(iterable)`** → sum of numbers.
-- **`list.append(x)`** → add `x` to the end.
-- **List comprehension** → concise list creation/filtering.
-- **`try/except`** → handle runtime errors gracefully.
-- **`raise Error("msg")`** → signal a specific error on purpose.
-- **Dictionaries** → key-value pairs: `d['key']`, `d['key']=value`.
-
----
-
