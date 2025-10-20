@@ -320,3 +320,158 @@ Script continues here.
 ---
 
 **Tip:** Keep your custom modules in the same folder as the script/notebook (or configure PYTHONPATH). Use aliases (`as`) for readability (`import numpy as np`, `import matplotlib.pyplot as plt`). And when you’re unsure, check `dir()` and `help()`!
+
+# BONUS : NumPy Array Slicing
+
+
+# NumPy Array Slicing — Beginner Guide
+
+This file explains how slicing works in NumPy arrays, with clear examples and outputs.  
+It is designed to be GitHub-friendly and easy to read.
+
+---
+
+## 1. Create an Array
+
+```python
+import numpy as np
+
+array = np.array([[1, 2, 3, 4],
+                  [5, 6, 7, 8],
+                  [9, 10, 11, 12]])
+```
+
+### Output (visual view)
+
+| Row | Values         |
+|-----|----------------|
+| 0   | [1, 2, 3, 4]   |
+| 1   | [5, 6, 7, 8]   |
+| 2   | [9, 10, 11, 12] |
+
+---
+
+## 2. Understanding `.ndim`, `.shape`, `.size`
+
+```python
+print(array.ndim)   # Number of dimensions
+print(array.shape)  # (rows, columns)
+print(array.size)   # Total number of elements
+```
+
+**Output:**
+```
+2
+(3, 4)
+12
+```
+
+---
+
+## 3. Basic Slicing
+
+```python
+print('Subarray:', array[1:, 1:3])
+```
+
+**Explanation:**
+- `1:` → rows from index 1 to end → rows 1 and 2
+- `1:3` → columns 1 to 2 (3 not included)
+- Selected elements:
+  - (1,1)=6, (1,2)=7
+  - (2,1)=10, (2,2)=11
+
+**Output:**
+```
+Subarray: [[ 6  7]
+           [10 11]]
+```
+
+---
+
+## 4. More Examples
+
+```python
+# 1) First row (all columns)
+print(array[0, :])  # [1 2 3 4]
+
+# 2) Last column (all rows)
+print(array[:, -1]) # [ 4  8 12]
+
+# 3) Block of middle elements
+print(array[0:2, 1:3])  # [[2 3], [6 7]]
+
+# 4) Every second row and column
+print(array[::2, ::2])  # [[ 1  3], [ 9 11]]
+
+# 5) Single element
+print(array[2, 3])      # 12
+```
+
+---
+
+## 5. Practice Exercises
+
+### Exercise 1
+Get the second row.
+```python
+print(array[1, :])
+```
+**Output:**
+```
+[5 6 7 8]
+```
+
+### Exercise 2
+Get the first two columns of all rows.
+```python
+print(array[:, :2])
+```
+**Output:**
+```
+[[ 1  2]
+ [ 5  6]
+ [ 9 10]]
+```
+
+### Exercise 3
+Get rows 0–1 and columns 2–3.
+```python
+print(array[0:2, 2:])
+```
+**Output:**
+```
+[[3 4]
+ [7 8]]
+```
+
+### Exercise 4
+Get the last two rows and last two columns.
+```python
+print(array[-2:, -2:])
+```
+**Output:**
+```
+[[ 7  8]
+ [11 12]]
+```
+
+---
+
+## 6. Summary
+
+| Attribute | Meaning |
+|------------|----------|
+| `.ndim` | Number of dimensions |
+| `.shape` | Shape (rows, columns) |
+| `.size` | Total number of elements |
+| `array[start:stop:step]` | Slice rows or columns |
+
+---
+
+✅ **Tip:** Stop value in slicing is *exclusive* (it is not included).  
+✅ **Tip:** You can use negative indices to count from the end.
+
+---
+
+*Created by Joseph Muganga — NumPy Beginner Notes*
