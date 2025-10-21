@@ -1,18 +1,5 @@
 # Introduction to Pandas in Python
 
-<img src="./intro_images/logo.png" width="100%" align="left" />
-
-<table style="float:right;">
-  <tr>
-    <td>
-      <div style="text-align: right">Dr Ali Sarrami Foroushani</div>
-      <div style="text-align: right">Lecturer in Cardiovascular Biomechanics</div>
-      <div style="text-align: right">School of Health Sciences</div>
-      <div style="text-align: right">University of Manchester</div>
-    </td>
-  </tr>
-</table>
-
 Pandas is a powerful library for **data manipulation and analysis**, especially when working with **tabular data** (spreadsheets, CSVs, SQL tables). This guide is beginner‑friendly and explains every step with code and comments. We’ll use the **Diabetes dataset** from `scikit-learn` to practice.
 
 ---
