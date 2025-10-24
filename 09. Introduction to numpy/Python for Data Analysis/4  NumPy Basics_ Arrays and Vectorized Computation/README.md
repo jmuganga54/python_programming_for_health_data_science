@@ -149,6 +149,7 @@ print(arr[5])       # 5
 print(arr[5:8])     # [5 6 7]
 
 sl = arr[5:8]
+#The colon [:] means “select the whole array”
 sl[:] = 99          # modifies the original (slices are VIEWS)
 print(arr)          # [0 1 2 3 4 99 99 99 8 9]
 ```
@@ -221,7 +222,15 @@ print(arr[[1,5,7,2], [0,3,1,2]]) # elements (1,0), (5,3), (7,1), (2,2)
 
 # Rectangular subset in new order:
 arr[[1,5,7,2]][:, [0,3,1,2]]
+
+#arr[[1, 5, 7, 2]] → row fancy indexing: picks rows 1, 5, 7, and 2 in that order (reorders the rows).
+#[:, [0, 3, 1, 2]] → from that result, picks columns 0, 3, 1, 2 (reorders the columns).
+# So you end up with a 4×4 array formed by those four rows and four columns, both reordered.
+# The space between ]] and [ is fine—this is just two consecutive indexing operations.
 ```
+
+
+
 
 > **Note**: Fancy indexing returns a **copy**, unlike slices.
 
