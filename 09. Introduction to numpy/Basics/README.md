@@ -36,6 +36,10 @@ An `ndarray` is a fast, typed, multi-dimensional container for numbers.
 - `np.linspace(start, stop, num)` → evenly spaced values
 - `np.eye(n)` → identity matrix
 
+> An identity matrix, is a special type of square matrix (same number of rows and columns) that has the following properties: 
+> * Main diagonal entries are all 1s.
+> * All other entries are 0s. 
+
 ```python
 import numpy as np
 
